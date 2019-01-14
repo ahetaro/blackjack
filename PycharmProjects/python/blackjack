@@ -1,0 +1,47 @@
+from random import shuffle
+
+Mark = {
+    1:"ハート",
+    2:"スペード",
+    3:"クローバー",
+    4:"ダイヤ"
+}
+
+Rank = {
+    1:"A",
+    11:"J",
+    12:"Q",
+    13:"K"
+}
+
+class Deck:
+    def __init__(self):
+
+        self.deck = [] #デッキ
+
+        for Align in range(1, 5): #カードのマーク分（ダイヤ・・・etc）
+
+            for rank in range(1, 14): #カードの枚数分(１～１３)
+
+                self.deck.append(Align*100 + rank)#*100にすることによって、１００～４００までの数値でカードの情報を表す＋rank()
+
+        shuffle(self.deck)
+
+    def draw_card(self):
+        return self.deck.pop() #指定した位置の要素を削除し、値を取得: pop()
+
+    class Player:
+        def __init__(self, name):
+            self.name = name
+            self.rank = []
+            self.draw_card_history = []
+
+    def get_sum(self):
+        return sum(self.rank)
+
+    def get_Align_rank(self, card):
+        num_Align = card // 100
+        num_rank = card % 100
+        display_Align = Mark[num_Align]
+        display_rank = Rank.get(num_rank, str(num_rank))
+        return num_Align, num_rank, display_Align, display_rank
